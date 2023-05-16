@@ -17,7 +17,9 @@ jobs:
           aws-region: 'us-west-2'
       - name: Install dependencies
         working-directory: ./aws-app-cdk
-        run:  npm install
+        run: | 
+         npm install
+         npm install -g aws-cdk
       - name: Synth cdk
         working-directory: ./aws-app-cdk
         run: cdk synth
