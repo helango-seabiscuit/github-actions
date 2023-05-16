@@ -25,4 +25,6 @@ jobs:
         run: cdk synth
       - name: Deploy stack
         working-directory: ./aws-app-cdk
-        run: cdk deploy --all --require-approval never
+        run: |
+         cdk bootstrap
+         cdk deploy --all --require-approval never
