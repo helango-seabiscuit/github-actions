@@ -8,12 +8,12 @@ export class AwsAppCdkStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const queue = new sqs.Queue(this, 'AwsAppCdkQueue', {
-      visibilityTimeout: Duration.seconds(300)
-    });
-
-    const topic = new sns.Topic(this, 'AwsAppCdkTopic');
-
-    topic.addSubscription(new subs.SqsSubscription(queue));
+    // const queue = new sqs.Queue(this, 'AwsAppCdkQueue', {
+    //   visibilityTimeout: Duration.seconds(300)
+    // });
+    //
+    // const topic = new sns.Topic(this, 'AwsAppCdkTopic');
+    //
+    // topic.addSubscription(new subs.SqsSubscription(queue));
   }
 }
