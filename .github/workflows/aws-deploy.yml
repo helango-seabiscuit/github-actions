@@ -15,7 +15,7 @@ jobs:
           java-version: 17
           distribution: temurin
       - name: Build app
-        working directory: ./reactive-music
+        working-directory: ./reactive-music
         run: ./gradlew clean build
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@master
