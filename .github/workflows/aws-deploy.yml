@@ -35,24 +35,24 @@ jobs:
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Build, tag, and push image to Amazon ECR
-        uses: docker/build-push-action@v2
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        with:
-#          context: ./.
-          file: ./Dockerfile
-          push: true
-          provenance: false
-          region: us-west-2
-          tags: ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG-${{ steps.sha_short.outputs.sha_short }}
-
+#        uses: docker/build-push-action@v2
 #        env:
 #          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-#          ECR_REPOSITORY: docker_reactive_music
-#          IMAGE_TAG: reactive_music_image
-#        run: |
-#          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-#          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+#        with:
+##          context: ./.
+#          file: ./Dockerfile
+#          push: true
+#          provenance: false
+#          region: us-west-2
+#          tags: ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG-${{ steps.sha_short.outputs.sha_short }}
+
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: docker_reactive_music
+          IMAGE_TAG: reactive_music_image
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Install dependencies
         working-directory: ./aws-app-cdk
