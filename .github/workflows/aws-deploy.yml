@@ -44,7 +44,7 @@ jobs:
           push: true
           provenance: false
           region: us-west-2
-          tags: ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG-${{ steps.sha_short.outputs.sha_short }}
+          tags: ${{ steps.login-ecr.outputs.registry }}/${{ ECR_REPOSITORY }}:${{ IMAGE_TAG }}-${{ steps.sha_short.outputs.sha_short }}
 
 #        env:
 #          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
