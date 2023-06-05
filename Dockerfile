@@ -1,6 +1,6 @@
 FROM public.ecr.aws/amazoncorretto/amazoncorretto:17
 
-ADD reactive-music/build/libs/reactive-music-*.jar reactive-music.jar
+ADD reactive-music/build/libs/reactive-music-0.0.1.jar reactive-music.jar
 
 EXPOSE 80
 
