@@ -2,9 +2,6 @@ name: deploy aws via cdk
 on: [push,workflow_dispatch]
 jobs:
   aws-cdk:
-    env:
-      ECR_REPOSITORY: reactive-music
-      IMAGE_TAG: reactive-music-image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -48,8 +45,8 @@ jobs:
 
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: docker_reactive_music
-          IMAGE_TAG: reactive_music_image
+          ECR_REPOSITORY: reactive-music
+          IMAGE_TAG: reactive-music-image
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
