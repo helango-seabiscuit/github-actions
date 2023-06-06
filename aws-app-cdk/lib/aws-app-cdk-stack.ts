@@ -39,7 +39,7 @@ export class AwsAppCdkStack extends Stack {
        desiredCount: 2,
        memoryLimitMiB: 512,
        publicLoadBalancer: true,
-       taskImageOptions: { image: ecs.ContainerImage.fromEcrRepository(aws_ecr.Repository.fromRepositoryName(this,"repository","reactive-music"))}
+       taskImageOptions: { image: ecs.ContainerImage.fromEcrRepository(aws_ecr.Repository.fromRepositoryName(this,"repository","reactive-music/reactive-music-image"))}
    })
   }
 }
