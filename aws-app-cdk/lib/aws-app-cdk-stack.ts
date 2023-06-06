@@ -35,7 +35,7 @@ export class AwsAppCdkStack extends Stack {
 
    new ecs_patterns.ApplicationLoadBalancedFargateService(this, "MyFargateService",{
        cluster: cluster,
-       cpu: 5256,
+       cpu: 256,
        desiredCount: 2,
        memoryLimitMiB: 512,
        publicLoadBalancer: true,
