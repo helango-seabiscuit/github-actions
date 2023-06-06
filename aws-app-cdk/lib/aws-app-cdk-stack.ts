@@ -33,13 +33,17 @@ export class AwsAppCdkStack extends Stack {
        vpc: vpc
    });
 
-   new ecs_patterns.ApplicationLoadBalancedFargateService(this, "MyFargateService",{
+   const fargateAlbService = new ecs_patterns.ApplicationLoadBalancedFargateService(this, "MyFargateService",{
        cluster: cluster,
        cpu: 256,
        desiredCount: 2,
        memoryLimitMiB: 512,
        publicLoadBalancer: true,
-       taskImageOptions: { image: ecs.ContainerImage.fromEcrRepository(aws_ecr.Repository.fromRepositoryName(this,"repository","reactive-music:reactive-music-image"))}
+       taskImageOptions: { image: ecs.ContainerImage.fromEcrRepository(aws_ecr.Repository.fromRepositoryName(this,"repository","reactive-music:reactive-music-image")),
+       containerPort: 80,
+       }
    })
+
+   fargateAlbService.targetGroup.configureHealthCheck({path:'/actuator/health', timeout: Duration.seconds(100), interval: Duration.seconds(60)})
   }
 }
