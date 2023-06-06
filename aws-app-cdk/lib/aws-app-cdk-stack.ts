@@ -36,7 +36,7 @@ export class AwsAppCdkStack extends Stack {
    const fargateAlbService = new ecs_patterns.ApplicationLoadBalancedFargateService(this, "MyFargateService",{
        cluster: cluster,
        cpu: 256,
-       desiredCount: 2,
+       desiredCount: 1,
        memoryLimitMiB: 512,
        publicLoadBalancer: true,
        taskImageOptions: { image: ecs.ContainerImage.fromEcrRepository(aws_ecr.Repository.fromRepositoryName(this,"repository","reactive-music:reactive-music-image")),
