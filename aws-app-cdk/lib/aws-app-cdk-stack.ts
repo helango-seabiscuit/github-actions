@@ -44,6 +44,6 @@ export class AwsAppCdkStack extends Stack {
        }
    })
 
-   fargateAlbService.targetGroup.configureHealthCheck({path:'/actuator/health', timeout: Duration.seconds(100), interval: Duration.seconds(60)})
+   fargateAlbService.targetGroup.configureHealthCheck({path:'/actuator/health', timeout: Duration.seconds(30), interval: Duration.seconds(60)})
   }
 }
