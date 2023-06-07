@@ -9,17 +9,13 @@ import { Construct } from 'constructs';
 import {EcrImage} from "aws-cdk-lib/aws-ecs";
 import {Repository} from "aws-cdk-lib/aws-ecr";
 
-export class AwsAppCdkStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
-    super(scope, id, props);
+export interface ServiceStackProps extends StackProps {
+    imageTag: string
+}
 
-    // const queue = new sqs.Queue(this, 'AwsAppCdkQueue', {
-    //   visibilityTimeout: Duration.seconds(300)
-    // });
-    //
-    // const topic = new sns.Topic(this, 'AwsAppCdkTopic');
-    //
-    // topic.addSubscription(new subs.SqsSubscription(queue));
+export class AwsAppCdkStack extends Stack {
+  constructor(scope: Construct, id: string, props?: ServiceStackProps) {
+    super(scope, id, props);
 
    const bucket = new aws_s3.Bucket(this,"test-cdk",{
      bucketName: "hema2023051623",
@@ -46,8 +42,7 @@ export class AwsAppCdkStack extends Stack {
        desiredCount: 1,
        memoryLimitMiB: 512,
        publicLoadBalancer: true,
-       // taskImageOptions: { image: ecs.ContainerImage.fromEcrRepository(aws_ecr.Repository.fromRepositoryName(this,"repository","reactive-music:reactive-music-image")),
-       taskImageOptions: { image: EcrImage.fromEcrRepository(ecrRepo,"reactive-music-image")},
+       taskImageOptions: { image: EcrImage.fromEcrRepository(ecrRepo,props?.imageTag)},
    })
 
    fargateAlbService.targetGroup.configureHealthCheck({path:'/actuator/health', timeout: Duration.seconds(30), interval: Duration.seconds(60)})

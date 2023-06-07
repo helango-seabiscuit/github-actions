@@ -11,6 +11,6 @@ public class TestController {
 
     @GetMapping("/hello")
     public String test(){
-        return "Hello from  AWS Reactive Application";
+        return "Hello from  AWS Reactive Music Application";
     }
 }
