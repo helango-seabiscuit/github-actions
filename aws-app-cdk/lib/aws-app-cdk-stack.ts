@@ -38,7 +38,7 @@ export class AwsAppCdkStack extends Stack {
       const ecrRepo = Repository.fromRepositoryArn(
           this,
           'ecr-repo',
-          `arn:aws:ecr:us-west-2::repository/reactive-music`)
+          `arn:aws:ecr:us-west-2:294541522848:repository/reactive-music`)
 
       const fargateAlbService = new ecs_patterns.ApplicationLoadBalancedFargateService(this, "MyFargateService",{
        cluster: cluster,
