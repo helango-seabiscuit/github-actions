@@ -31,11 +31,23 @@ export class AwsAppCdkStack extends Stack {
       const fargateAlbService = new ecs_patterns.ApplicationLoadBalancedFargateService(this, "MyFargateService",{
        cluster: cluster,
        cpu: 256,
-       desiredCount: 1,
+       healthCheckGracePeriod: Duration.seconds(120),
+       desiredCount: 2,
        memoryLimitMiB: 512,
        publicLoadBalancer: true,
        taskImageOptions: { image: EcrImage.fromEcrRepository(ecrRepo,props?.imageTag)},
    })
+
+     // const scalableTarget = fargateAlbService.service.autoScaleTaskCount({
+     //      minCapacity:1,
+     //      maxCapacity:4
+     //  })
+     //  scalableTarget.scaleOnCpuUtilization("",{
+     //      targetUtilizationPercent: 50
+     //  })
+     //  scalableTarget.scaleOnMemoryUtilization("",{
+     //      targetUtilizationPercent:50
+     //  })
 
    fargateAlbService.targetGroup.configureHealthCheck({path:'/actuator/health', timeout: Duration.seconds(30), interval: Duration.seconds(60)})
   }
