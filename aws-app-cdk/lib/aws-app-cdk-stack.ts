@@ -4,7 +4,7 @@ import * as ecs_patterns from 'aws-cdk-lib/aws-ecs-patterns';
 import { Construct } from 'constructs';
 import {EcrImage} from "aws-cdk-lib/aws-ecs";
 import {Repository} from "aws-cdk-lib/aws-ecr";
-import {Duration, Stack, StackProps} from "aws-cdk-lib";
+import {CfnOutput, Duration, Stack, StackProps} from "aws-cdk-lib";
 
 export interface ServiceStackProps extends StackProps {
     imageTag: string
@@ -50,5 +50,9 @@ export class AwsAppCdkStack extends Stack {
      //  })
 
    fargateAlbService.targetGroup.configureHealthCheck({path:'/actuator/health', timeout: Duration.seconds(30), interval: Duration.seconds(60)})
+      new CfnOutput(this, "loadBalancer" , {
+          exportName: "lburl",
+          value: fargateAlbService.loadBalancer.loadBalancerDnsName
+      })
   }
 }

@@ -51,3 +51,14 @@ jobs:
         run: |
          cdk bootstrap
          cdk deploy --all --require-approval never
+      - name: Get stack outputs
+        id: getLoadBalancer
+        run: |
+          echo "ALB_URL=$(
+                      aws cloudformation \
+                      --region us-west-2 describe-stacks \
+                      --stack-name $(echo ${GITHUB_REF##*/}) \
+                      --query "Stacks[0].Outputs[0].lburl"
+                    )" >> $GITHUB_OUTPUT
+      - name: Alb url print
+        run: echo ${{ steps.getLoadBalancer.outputs.ALB_URL }}
