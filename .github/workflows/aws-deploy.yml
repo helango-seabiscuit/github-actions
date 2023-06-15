@@ -57,8 +57,8 @@ jobs:
           echo "ALB_URL=$(
                       aws cloudformation \
                       --region us-west-2 describe-stacks \
-                      --stack-name $(echo ${GITHUB_REF##*/}) \
-                      --query "Stacks[0].Outputs[0].lburl"
+                      --stack-name AwsAppCdkStack \
+                      --query "Stacks[0].Outputs[2].OutputValue"
                     )" >> $GITHUB_OUTPUT
       - name: Alb url print
         run: echo ${{ steps.getLoadBalancer.outputs.ALB_URL }}
