@@ -24,7 +24,8 @@ export class AwsAppCdkStack extends Stack {
     )
       const deployBucket = new aws_s3_deployment.BucketDeployment(this, "deployBucket",{
           sources: [aws_s3_deployment.Source.asset(path.join(__dirname, '../s3uploads'))],
-          destinationBucket: bucket
+          destinationBucket: bucket,
+          destinationKeyPrefix: "web-uploads"
           }
 
       )
